@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Image with Text</title>
+<style>
+  input[type="file"] {
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <h1>Upload an Image with Text</h1>
+  <form>
+    <label for="fileUpload">Select an image:</label>
+    <input type="file" id="fileUpload" accept="image/*">
+    <br>
+    <input type="text" id="textInput" placeholder="Type something...">
+    <br>
+    <button type="button" onclick="addImageToText()">Upload</button>
+  </form>
+
+  <script>
+    function addImageToText() {
+      var fileInput = document.getElementById('fileUpload');
+      var imageInput = document.getElementById('textInput');
+      var file = fileInput.files[0];
+
+      if (file) {
+        var reader = new FileReader();
+        reader.onload = function() {
+          imageInput.value = reader.result;
+          var img = document.createElement('img');
+          img.src = reader.result;
+          img.style.maxWidth = '100px'; // Adjust the image size as needed
+          img.alt = 'Uploaded Image';
+          imageInput.parentNode.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
+</body>
+</html>
